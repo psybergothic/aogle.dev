@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alexander Ogle — Engineering &amp; Art</title>
+<meta name="description" content="Alexander Ogle — engineering and art.">
+<style>
+  :root {
+    --bg: #f2efe9;
+    --ink: #2b2b33;
+    --accent: #c8542e;
+    --muted: #6d6a63;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1b22;
+      --ink: #e8e5de;
+      --accent: #e07a52;
+      --muted: #97938a;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    letter-spacing: -0.02em;
+  }
+  .rule {
+    width: 4rem;
+    height: 0.3rem;
+    background: var(--accent);
+    margin: 1.2rem auto;
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 1.25rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  nav {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer {
+    position: fixed;
+    bottom: 1.2rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+  #art {
+    font: 12px/1.15 ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+    color: var(--accent);
+    opacity: 0.85;
+    user-select: none;
+    margin-bottom: 2rem;
+    white-space: pre;
+  }
+  @media (max-width: 600px) { #art { font-size: 8px; } }
+  #art .w { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <pre id="art" aria-hidden="true"></pre>
+  <h1>Alexander Ogle</h1>
+  <div class="rule"></div>
+  <p class="tagline">Engineering &amp; Art</p>
+  <nav>
+    <a href="https://github.com/psybergothic">GitHub</a>
+    <a href="mailto:alexander.ogle@gmail.com">Email</a>
+  </nav>
+</main>
+<footer>© 2026 Alexander Ogle · aogle.dev</footer>
+<script>
+(function () {
+  const el = document.getElementById("art");
+  const W = 64, H = 12;
+  const chars = " .·:-=+*#%@";
+
+  // Anti-Oedipus & A Thousand Plateaus, Deleuze & Guattari
+  const WORDS = [
+    // Anti-Oedipus
+    "desiring-machines",
+    "body without organs",
+    "deterritorialization",
+    "reterritorialization",
+    "schizoanalysis",
+    "desiring-production",
+    "decoded flows",
+    "the socius",
+    "anti-production",
+    "partial objects",
+    "the celibate machine",
+    "the miraculating machine",
+    "the paranoiac machine",
+    "molecular",
+    "molar aggregates",
+    "the schizo out for a walk",
+    "flows and interruptions",
+    "the full body of the earth",
+    "connective synthesis",
+    "disjunctive synthesis",
+    "conjunctive synthesis",
+    "the despotic signifier",
+    "surplus value of code",
+    "flows of desire",
+    "the primitive territorial machine",
+    "the barbarian despotic machine",
+    "the civilized capitalist machine",
+    "the capitalist axiomatic",
+    "the unconscious is a factory",
+    "desire is a machine",
+    "breaks and flows",
+    "organ-machines",
+    "energy-machines",
+    "producing-machines",
+    "the nomadic subject",
+    "coding and overcoding",
+    "the despotic machine",
+    "the theater of representation",
+    "the schizophrenic process",
+    "universal history of contingencies",
+    // A Thousand Plateaus
+    "rhizome",
+    "a thousand plateaus",
+    "lines of flight",
+    "plane of consistency",
+    "the war machine",
+    "nomadology",
+    "smooth space",
+    "striated space",
+    "the refrain",
+    "becoming-animal",
+    "becoming-woman",
+    "becoming-imperceptible",
+    "becoming-intense",
+    "becoming-molecular",
+    "becoming-minoritarian",
+    "faciality",
+    "the abstract machine",
+    "machinic assemblage",
+    "collective assemblage of enunciation",
+    "strata",
+    "destratification",
+    "the plane of organization",
+    "segmentarity",
+    "micropolitics",
+    "haecceity",
+    "arborescent",
+    "the map and the tracing",
+    "make rhizome",
+    "n-1",
+    "multiplicity",
+    "the wasp and the orchid",
+    "double articulation",
+    "content and expression",
+    "the geology of morals",
+    "one or several wolves",
+    "the anomalous",
+    "bands and packs",
+    "the sorcerer",
+    "involution",
+    "milieu and rhythm",
+    "the cosmic refrain",
+    "order-words",
+    "a minor language",
+    "regimes of signs",
+    "white wall, black hole",
+    "probe-heads",
+    "the diagram",
+    "the state apparatus",
+    "apparatus of capture",
+    "holey space",
+    "speeds and slownesses",
+    "longitude and latitude",
+    "the mechanosphere",
+    "god is a lobster",
+    "the double pincer",
+    "crowned anarchy",
+    "nuptials against nature",
+    "absolute deterritorialization",
+    "relative deterritorialization",
+    "continuum of intensities",
+    "matter-flow",
+    "the machinic phylum",
+    "nomad science",
+    "royal science",
+    "a thousand tiny sexes",
+    "the earth is a body without organs",
+  ];
+
+  const active = [];
+
+  function spawn(t) {
+    const word = WORDS[Math.floor(Math.random() * WORDS.length)];
+    if (active.some(a => a.word === word)) return;
+    const x = 1 + Math.floor(Math.random() * (W - word.length - 2));
+    const y = Math.floor(Math.random() * H);
+    if (active.some(a => Math.abs(a.y - y) < 2)) return;
+    active.push({ word, x, y, t0: t, dur: 5 + Math.random() * 4, seed: Math.random() * 100 });
+  }
+
+  // Stable per-letter randomness so letters materialize in a fixed scatter order
+  function rnd(seed, j) {
+    const s = Math.sin(seed + j * 12.9898) * 43758.5453;
+    return s - Math.floor(s);
+  }
+
+  function frame(t) {
+    for (let i = active.length - 1; i >= 0; i--)
+      if (t - active[i].t0 > active[i].dur) active.splice(i, 1);
+    if (active.length < 2 && Math.random() < 0.05) spawn(t);
+
+    const grid = [], mask = [];
+    for (let y = 0; y < H; y++) {
+      grid.push([]); mask.push([]);
+      for (let x = 0; x < W; x++) {
+        const v =
+          Math.sin(x * 0.22 + t) +
+          Math.sin(y * 0.45 - t * 0.7) +
+          Math.sin((x + y) * 0.17 + t * 0.5) +
+          Math.sin(Math.hypot(x - W / 2, (y - H / 2) * 2) * 0.3 - t);
+        const i = Math.max(0, Math.min(chars.length - 1,
+          Math.round((v + 4) / 8 * (chars.length - 1))));
+        grid[y].push(chars[i]);
+        mask[y].push(false);
+      }
+    }
+
+    for (const a of active) {
+      const p = (t - a.t0) / a.dur;
+      // Visibility ramps up over the first 25% of life, down over the last 25%
+      const vis = Math.min(1, p / 0.25, (1 - p) / 0.25);
+      for (let j = 0; j < a.word.length; j++) {
+        if (rnd(a.seed, j) < vis) {
+          grid[a.y][a.x + j] = a.word[j] === " " ? " " : a.word[j];
+          mask[a.y][a.x + j] = true;
+        }
+      }
+    }
+
+    let html = "";
+    for (let y = 0; y < H; y++) {
+      let x = 0;
+      while (x < W) {
+        if (mask[y][x]) {
+          let run = "";
+          while (x < W && mask[y][x]) run += grid[y][x++];
+          html += '<span class="w">' + run + "</span>";
+        }
+        else html += grid[y][x++];
+      }
+      html += "\n";
+    }
+    el.innerHTML = html;
+  }
+
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    active.push({ word: "body without organs", x: 22, y: 5, t0: -5, dur: 10, seed: 1 });
+    frame(0);
+    return;
+  }
+  let last = 0;
+  function loop(ms) {
+    if (ms - last > 80) {   // ~12 fps, plenty for ASCII
+      last = ms;
+      frame(ms / 1000);
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
